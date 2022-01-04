@@ -9,6 +9,8 @@ $vars = array(
   'name'      => getenv("INSTALL_NAME")  ?: 'My Helpdesk',
   'email'     => getenv("INSTALL_EMAIL") ?: 'helpdesk@example.com',
   'url'       => getenv("INSTALL_URL")   ?: 'http://localhost:8080/',
+  
+  'tproxy'    => getenv("TRUSTED_PROXIES")   ?: "",
 
   'fname'       => getenv("ADMIN_FIRSTNAME") ?: 'Admin',
   'lname'       => getenv("ADMIN_LASTNAME")  ?: 'User',
@@ -37,6 +39,9 @@ $vars = array(
   'siri'     => getenv("INSTALL_SECRET"),
   'config'   => getenv("INSTALL_CONFIG") ?: '/data/upload/include/ost-sampleconfig.php'
 );
+
+//Setup trusted proxies var
+$vars['tproxy'] = "'TRUSTED_PROXIES', '" . $vars['tproxy'] . "'";
 
 //Script settings
 define('CONNECTION_TIMEOUT_SEC', 180);
@@ -195,6 +200,8 @@ $configFile= str_replace('%CONFIG-DBUSER',$vars['dbuser'],$configFile);
 $configFile= str_replace('%CONFIG-DBPASS',$vars['dbpass'],$configFile);
 $configFile= str_replace('%CONFIG-PREFIX',$vars['prefix'],$configFile);
 $configFile= str_replace('%CONFIG-SIRI',$vars['siri'],$configFile);
+
+$configFile= str_replace("'TRUSTED_PROXIES', ''",$vars['tproxy'],$configFile);
 
 if (!file_put_contents($installer->getConfigFile(), $configFile)) {
    err("Failed to write configuration file");
