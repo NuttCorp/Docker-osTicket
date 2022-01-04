@@ -202,7 +202,6 @@ $configFile= str_replace('%CONFIG-PREFIX',$vars['prefix'],$configFile);
 $configFile= str_replace('%CONFIG-SIRI',$vars['siri'],$configFile);
 
 $configFile= str_replace("'TRUSTED_PROXIES', ''",$vars['tproxy'],$configFile);
-err($vars['tproxy']);
 
 if (!file_put_contents($installer->getConfigFile(), $configFile)) {
    err("Failed to write configuration file");
