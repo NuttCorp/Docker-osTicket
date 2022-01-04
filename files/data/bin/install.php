@@ -10,7 +10,7 @@ $vars = array(
   'email'     => getenv("INSTALL_EMAIL") ?: 'helpdesk@example.com',
   'url'       => getenv("INSTALL_URL")   ?: 'http://localhost:8080/',
   
-  'tproxy'    => getenv("TRUSTED_PROXIES")   ?: "",
+  'tproxy'    => getenv("TRUSTED_PROXIES")   ?: '*',
 
   'fname'       => getenv("ADMIN_FIRSTNAME") ?: 'Admin',
   'lname'       => getenv("ADMIN_LASTNAME")  ?: 'User',
@@ -201,6 +201,7 @@ $configFile= str_replace('%CONFIG-DBPASS',$vars['dbpass'],$configFile);
 $configFile= str_replace('%CONFIG-PREFIX',$vars['prefix'],$configFile);
 $configFile= str_replace('%CONFIG-SIRI',$vars['siri'],$configFile);
 
+echo $vars['tproxy\n'];
 $configFile= str_replace("'TRUSTED_PROXIES', ''",$vars['tproxy'],$configFile);
 
 if (!file_put_contents($installer->getConfigFile(), $configFile)) {
